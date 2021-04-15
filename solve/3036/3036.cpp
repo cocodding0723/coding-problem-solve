@@ -12,7 +12,7 @@ int gcd(int A, int B){
         n = remainder;
         remainder = m % n;
     }
-
+    
     return n;
 }
 
