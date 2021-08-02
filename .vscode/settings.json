@@ -1,5 +1,13 @@
 {
     "files.associations": {
-        "xutility": "cpp"
+        "xutility": "cpp",
+        "iostream": "cpp",
+        "system_error": "cpp",
+        "type_traits": "cpp",
+        "xtr1common": "cpp",
+        "cmath": "cpp",
+        "xhash": "cpp",
+        "vector": "cpp",
+        "xlocale": "cpp"
     }
 }

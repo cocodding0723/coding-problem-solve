@@ -4,39 +4,60 @@
 
 using namespace std;
 
-vector<int> graph[20001];
-bool visit[20001];
+struct NODE{
+    int number;
+    bool div;
+};
 
-bool is_bipartite_graph(){
-    queue<pair<int, bool>> q;
-    q.push(make_pair(0, false));
+int K, V, E, x, y;
+
+void bfs(vector<int> v[]){
+    bool visit[20001] = { 0 };
+    bool div[20001];
+    queue<NODE> q;
+    q.push({x, false});
 
     while(!q.empty()){
-        pair<int, bool> p = q.front();
+        NODE current = q.front();
         q.pop();
 
-        if (!visit[p.first]){
+        if (!visit[current.number]){
+            visit[current.number] = true;
             
+            for (int i=0; i < v[current.number].size(); i++){
+                NODE next = { v[current.number][i], !current.div };
+                if (!visit[next.number]){
+                    div[next.number] = !current.div;
+                    q.push({ v[current.number][i], !current.div });
+                }
+                else{
+                    if (current.div == div[next.number]){
+                        cout << "NO" << endl;
+                        return;
+                    }
+                }
+            }
         }
     }
+
+    cout << "YES" << endl;
 }
 
 int main(){
-    cin.tie(); cout.tie();
-    int T, V, E;
-    int first, second;
+    cin >> K;
 
-    cin >> T;
-    for (int t = 0; t < T; t++){
+    for (int i=0; i<K; i++){
+        vector<int> v[20001];
+
         cin >> V >> E;
-        for (int e = 0; e < E; e++){
-            cin >> first >> second;
-            graph[first].push_back(second);
-            graph[second].push_back(first);
+        for (int j=0; j<E; j++){
+            cin >> x >> y;
+
+            v[x].push_back(y);
+            v[y].push_back(x);
         }
-        if (is_bipartite_graph()){
-            
-        }
+
+        bfs(v);
     }
 
     return 0;
